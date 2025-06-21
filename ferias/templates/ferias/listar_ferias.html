@@ -1,0 +1,50 @@
+{% extends 'ferias/base.html' %}
+{% load django_bootstrap5 %}
+{% block title %}Lista de Ferias{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="card-title">Lista de Ferias</h3>
+            <a href="{% url 'registrar_feria' %}" class="btn btn-success">
+                <i class="fas fa-plus"></i> Nueva Feria
+            </a>
+        </div>
+        <div class="card-body">
+            {% if ferias %}
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Fecha Creación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for feria in ferias %}
+                            <tr>
+                                <td>{{ feria }}</td>
+                                <td>{{ feria.fecha_creacion|date:"d/m/Y H:i" }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger">
+                                        <i class="fas fa-trash"></i> Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    No hay ferias registradas.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
